@@ -181,7 +181,13 @@ main {
 }
 
 .dock-item {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 4px;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
@@ -223,4 +229,34 @@ main {
 
 .dock-item:hover .square {
     transform: translateY(-8px);
+}
+
+.dock-item, .square {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+
+@media (hover: none) {
+    .dock {
+        padding: 6px 12px;  /* Slightly smaller padding on mobile */
+    }
+    
+    .square {
+        width: 45px;  /* Slightly smaller squares on mobile */
+        height: 45px;
+    }
+
+    /* Show label on tap */
+    .dock-item:active::after {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-8px);
+        transition: opacity 0.15s, transform 0.2s;
+    }
+
+    /* Subtle tap feedback */
+    .dock-item:active .square {
+        transform: scale(0.95);
+        transition: transform 0.1s;
+    }
 }
