@@ -1,165 +1,38 @@
+/* Common styles */
 body {
     margin: 0;
     padding: 0;
-    background-color: #F0F0F0;
-    color: #000000;
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: bold;
-    letter-spacing: -0.07em;
-    overflow: hidden;
+    min-height: 100vh;
+    background: #F0F0F0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-#globe-container {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background-color: #F0F0F0;
-}
-
-main {
-    position: relative;
-    z-index: 2;
-}
-
-.section {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.nav-item {
-    font-size: clamp(4rem, 20vw, 16rem);
-    color: #000000;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    transform: rotate(var(--rotation));
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-    opacity: 0;
-    transform: scale(0.5) rotate(var(--rotation));
-    cursor: pointer;
-    position: absolute;
-    white-space: nowrap;
-    will-change: transform, opacity;
-}
-
-.section.active .nav-item {
-    opacity: 1;
-    transform: scale(1) rotate(var(--rotation));
-}
-
-.nav-item:hover {
-    color: #000000;
-    transform: scale(1.1) rotate(var(--rotation));
-    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Apply random rotations from data attributes */
-[data-rotation] {
-    --rotation: attr(data-rotation deg);
-}
-
-/* Hamburger Menu Styles */
-.hamburger-btn {
-    position: fixed;
-    top: 30px;
-    right: 30px;
-    width: 50px;
-    height: 40px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
-    padding: 0;
-    mix-blend-mode: difference;
-}
-
-.hamburger-btn span {
-    display: block;
-    width: 100%;
-    height: 3px;
-    background-color: #000000;
-    margin: 8px 0;
-    transition: all 0.3s ease;
-    border-radius: 2px;
-}
-
-/* Hamburger Animation */
-.hamburger-btn.active span:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
-}
-
-.hamburger-btn.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger-btn.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(8px, -8px);
-}
-
-/* Menu Overlay */
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.95);
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.menu-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.menu-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-.menu-item {
-    display: block;
-    color: #000000;
-    font-size: 3rem;
-    margin: 3rem 0;
+a {
+    color: #000;
     text-decoration: none;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: bold;
-    letter-spacing: -0.07em;
 }
 
-.menu-overlay.active .menu-item {
-    opacity: 1;
-    transform: translateY(0);
+/* Desktop UI */
+.desktop-ui {
+    display: none;
+    min-height: 100vh;
+    position: relative;
 }
 
-.menu-item:hover {
-    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    transform: scale(1.1);
+.contact-link {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
 }
 
-/* Dock Styles */
 .dock-container {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
-    padding: 10px;
 }
 
 .dock {
@@ -180,15 +53,26 @@ main {
         0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.square {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+    box-shadow: 
+        0 1px 1px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
 .dock-item {
+    position: relative;
     min-width: 44px;
     min-height: 44px;
-    padding: 4px;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .dock-item::after {
@@ -216,47 +100,50 @@ main {
     opacity: 1;
 }
 
-.square {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    transition: transform 0.2s ease;
-    box-shadow: 
-        0 1px 1px rgba(0, 0, 0, 0.1),
-        0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 0.5px solid rgba(255, 255, 255, 0.1);
-}
-
 .dock-item:hover .square {
     transform: translateY(-8px);
 }
 
-.dock-item, .square {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    user-select: none;
+/* Mobile UI */
+.mobile-ui {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-@media (hover: none) {
-    .dock {
-        padding: 6px 12px;  /* Slightly smaller padding on mobile */
-    }
-    
-    .square {
-        width: 45px;  /* Slightly smaller squares on mobile */
-        height: 45px;
-    }
+.mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    font-size: 16px;
+}
 
-    /* Show label on tap */
-    .dock-item:active::after {
-        opacity: 1;
-        transform: translateX(-50%) translateY(-8px);
-        transition: opacity 0.15s, transform 0.2s;
-    }
+.mobile-footer {
+    position: fixed;
+    bottom: 40px;
+    font-size: 14px;
+}
 
-    /* Subtle tap feedback */
-    .dock-item:active .square {
-        transform: scale(0.95);
-        transition: transform 0.1s;
+/* Media Queries */
+@media (min-width: 768px) {
+    .desktop-ui {
+        display: block;
+    }
+    .mobile-ui {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .desktop-ui {
+        display: none;
+    }
+    .mobile-ui {
+        display: flex;
     }
 }
